@@ -2,11 +2,10 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-COPY . .
+# Copy only inner project
+COPY ecommerce/ .
 
 RUN apt-get update && apt-get install -y maven
-
-# Skip tests & DB issues
-RUN mvn clean package -DskipTests -Dmaven.test.skip=true
+RUN mvn clean package -DskipTests
 
 ENTRYPOINT ["java","-jar","target/*.jar"]
