@@ -1,5 +1,5 @@
 # Use Java 17
-FROM openjdk:17
+FROM eclipse-temurin:17-jdk
 
 # Copy project files
 COPY . .
