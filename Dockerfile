@@ -2,11 +2,6 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-# Go inside inner project
-COPY ecommerce/ .
+COPY ecommerce/target/*.jar app.jar
 
-RUN apt-get update && apt-get install -y maven
-
-RUN mvn clean package -DskipTests
-
-ENTRYPOINT ["java","-jar","target/*.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
