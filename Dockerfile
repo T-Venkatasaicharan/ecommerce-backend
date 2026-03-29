@@ -5,14 +5,14 @@ WORKDIR /app
 # Copy full project
 COPY . .
 
-# Go into inner project
+# Move into inner project (VERY IMPORTANT)
 WORKDIR /app/ecommerce
 
-# Install maven
+# Install Maven
 RUN apt-get update && apt-get install -y maven
 
 # Build project
 RUN mvn clean package -DskipTests
 
-# Run jar
+# Run app
 ENTRYPOINT ["java","-jar","target/*.jar"]
