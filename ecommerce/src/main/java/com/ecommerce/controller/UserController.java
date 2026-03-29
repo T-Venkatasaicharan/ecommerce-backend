@@ -1,4 +1,5 @@
 package com.ecommerce.controller;
+import java.util.List;
 import java.util.Optional;
 import com.ecommerce.model.User;
 import com.ecommerce.repository.UserRepository;
@@ -9,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -37,6 +39,10 @@ public class UserController {
         } else {
             return "User Not Found";
         }
+    }
+    @GetMapping
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
     }
 
 }
