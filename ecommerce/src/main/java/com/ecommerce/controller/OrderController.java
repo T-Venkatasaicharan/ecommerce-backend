@@ -5,6 +5,8 @@ import com.ecommerce.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/orders")
 @CrossOrigin(origins = "*")
@@ -17,5 +19,10 @@ public class OrderController {
     public OrderEntity placeOrder(@RequestBody OrderEntity order) {
         return orderRepository.save(order);
     }
+    @GetMapping
+    public List<OrderEntity> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
 
 }
