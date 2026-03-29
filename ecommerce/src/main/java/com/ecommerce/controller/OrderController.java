@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/orders")
+@CrossOrigin(origins = "*")
 public class OrderController {
 
     @Autowired
     private OrderRepository orderRepository;
 
-    @PostMapping("/place")
+    @PostMapping
     public OrderEntity placeOrder(@RequestBody OrderEntity order) {
-        order.setStatus("COD");
         return orderRepository.save(order);
     }
+
 }
