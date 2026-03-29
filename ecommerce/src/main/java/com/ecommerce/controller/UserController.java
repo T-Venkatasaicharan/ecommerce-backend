@@ -21,25 +21,22 @@ public class UserController {
         return userRepository.save(user);
     }
 
-    @PostMapping("/login")
-    public String loginUser(@RequestBody User user) {
 
-        if (user.getUsername() == null || user.getPassword() == null) {
-            return "Username or Password is missing";
+    @PostMapping("/login")
+    public String login(@RequestBody User user) {
+        User dbUser = userRepository.findByUsername(user.getUsername());
+
+        if (dbUser == null) {
+            return "User not found ❌";
         }
 
-        Optional<User> dbUser = userRepository.findByUsername(user.getUsername());
-
-        if (dbUser.isPresent()) {
-            if (dbUser.get().getPassword().equals(user.getPassword())) {
-                return "Login Successful";
-            } else {
-                return "Invalid Password";
-            }
+        if (dbUser.getPassword().equals(user.getPassword())) {
+            return "Login successful ✅";
         } else {
-            return "User Not Found";
+            return "Wrong password ❌";
         }
     }
+
     @GetMapping
     public List<User> getAllUsers(){
         return userRepository.findAll();
