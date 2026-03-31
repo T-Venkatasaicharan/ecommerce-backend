@@ -24,16 +24,21 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestBody User user) {
+
+        if (user.getUsername() == null || user.getPassword() == null) {
+            return "Invalid input ";
+        }
+
         User dbUser = userRepository.findByUsername(user.getUsername());
 
         if (dbUser == null) {
-            return "User not found ❌";
+            return "User not found ";
         }
 
-        if (dbUser.getPassword().equals(user.getPassword())) {
-            return "Login successful ✅";
+        if (dbUser.getPassword() != null && dbUser.getPassword().equals(user.getPassword())) {
+            return "Login successful ";
         } else {
-            return "Wrong password ❌";
+            return "Wrong password ";
         }
     }
 
