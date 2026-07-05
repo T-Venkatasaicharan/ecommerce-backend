@@ -1,7 +1,11 @@
 package com.ecommerce.controller;
 
+import com.ecommerce.model.Order;
 import com.ecommerce.model.OrderEntity;
+import com.ecommerce.model.User;
 import com.ecommerce.repository.OrderRepository;
+import com.ecommerce.service.OrderService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +17,14 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    private OrderRepository orderRepository;
-
+    private OrderService orderService;
     @PostMapping
-    public OrderEntity placeOrder(@RequestBody OrderEntity order) {
-        return orderRepository.save(order);
+    public Order placeOrder(@RequestBody Order order){
+        return orderService.placeOrder(order);
     }
-    @GetMapping
-    public List<OrderEntity> getAllOrders() {
-        return orderRepository.findAll();
+    @GetMapping("/user/{userId}")
+    public List<Order> getOrders(@PathVariable Long userId){
+        return orderService.getOrdersByUserId(userId);
     }
 
 
